@@ -7,7 +7,7 @@ export TERM=xterm-256color
 SOCK_PORT=8888
 
 # Download and install dante-server
-print_stage "Downloading and installing dante-server"
+echo "Downloading and installing dante-server"
 curl -O https://www.inet.no/dante/files/dante-1.4.4.tar.gz
 tar xvzf dante-1.4.4.tar.gz
 cd dante-1.4.4
@@ -15,7 +15,7 @@ cd dante-1.4.4
 make && make install
 
 # Create dante configuration file
-print_stage "Setting up dante-server"
+echo "Setting up dante-server"
 cat <<EOF | tee /etc/sockd.conf
 logoutput: /var/log/sockd.log
 internal: 0.0.0.0 port = ${SOCK_PORT}
@@ -36,7 +36,7 @@ EOF
 
 # Start sockd
 # sudo /usr/local/sbin/sockd -D
-
+cd ../
 cp -f dante.service /lib/systemd/system/
 chmod 644 /usr/lib/systemd/system/dante.service
 systemctl daemon-reload 
